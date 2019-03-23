@@ -2,13 +2,13 @@
 [{<<"elli">>,{pkg,<<"elli">>,<<"3.2.0">>},0},
  {<<"gleam_experimental_elli">>,
   {git,"https://github.com/gleam-lang/gleam_experimental_elli",
-       {ref,"a2fb8dfc1a72fffcbe6fe68c5372245691da988b"}},
+       {ref,"59ff7d4f3d7123d7fae70f9cab0d534a7a242bd6"}},
   0},
  {<<"gleam_experimental_stdlib">>,
-  {pkg,<<"gleam_experimental_stdlib">>,<<"0.0.0">>},
+  {pkg,<<"gleam_experimental_stdlib">>,<<"0.0.1">>},
   0}]}.
 [
 {pkg_hash,[
  {<<"elli">>, <<"7842861819869EBBFF7230BC77ECF2DF551AE3EAEF5FDE6B01A7561CACCB811E">>},
- {<<"gleam_experimental_stdlib">>, <<"43C4B61AB76D474CF0658E21262619DD37CC66778B0415C7A03335D0BCEEFC32">>}]}
+ {<<"gleam_experimental_stdlib">>, <<"903DA7098976459C088F1136FEA15F6878368F4FC0EA5AA09C390B881558368B">>}]}
 ].
