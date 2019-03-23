@@ -1,6 +1,7 @@
+import atom
 import iodata
 import tiny_db
-import atom
+import tiny_html
 
 pub external type Request;
 
@@ -9,6 +10,9 @@ pub external fn request_body(Request) -> String = "elli_request" "body";
 
 pub fn handle(request, _args) {
   case request_path(request) {
+  | [] ->
+    {200, [], tiny_html:home()}
+
   | ["link"] ->
       let body = request
         |> request_body
@@ -22,11 +26,11 @@ pub fn handle(request, _args) {
           {200, [], iodata:new(link)}
 
       | Error(_) ->
-          {404, [], iodata:new("Link not found")}
+          {404, [], tiny_html:not_found()}
       }
 
   | _ ->
-      {404, [], iodata:new("Page not found")}
+      {404, [], tiny_html:not_found()}
   }
 }
 

@@ -8,9 +8,9 @@ import map
 import str
 import atom
 
-external type Charlist
-external fn int_to_charlist(Int) -> Charlist = "erlang" "integer_to_list"
-external fn charlist_to_string(Charlist) -> String = "erlang" "list_to_binary"
+external type Charlist;
+external fn int_to_charlist(Int) -> Charlist = "erlang" "integer_to_list";
+external fn charlist_to_string(Charlist) -> String = "erlang" "list_to_binary";
 
 fn int_to_string(i) {
   i |> int_to_charlist |> charlist_to_string
