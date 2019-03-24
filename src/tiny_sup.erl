@@ -27,8 +27,16 @@ init([]) ->
     {ok, {Config, Children}}.
 
 web_child_spec(_) ->
+    Middleware = [
+        {tiny_web, []}],
+
+    ElliOpts = [
+        {callback, tiny_web},
+        {callback_args, [{mods, Middleware}]},
+        {port, 3000}],
+
     #{id => tiny_web,
-      start => {elli, start_link, [[{callback, tiny_web}, {port, 3000}]]},
+      start => {elli, start_link, [ElliOpts]},
       restart => permanent,
       shutdown => 5000,
       type => worker}.
