@@ -12,3 +12,9 @@ More importantly it's also an example web application written in the
 ```sh
 rebar3 shell
 ```
+
+## TODO
+
+- Styling
+- Postgresql database
+- Deploy
