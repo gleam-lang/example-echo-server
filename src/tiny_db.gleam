@@ -4,7 +4,7 @@
 // We don't have good gen_server bindings yet, so it includes some unsafe FFI.
 //
 
-import map
+import map_dict
 import str
 import atom
 
@@ -25,19 +25,19 @@ pub enum Call =
   | Get(String)
 
 pub fn init(_arg) {
-  let links = map:new()
+  let links = map_dict:new()
   Ok(links)
 }
 
 pub fn handle_call(call, _from, links) {
   case call {
   | Get(id) ->
-      let link = map:fetch(links, id)
+      let link = map_dict:fetch(links, id)
       Reply(link, links)
 
   | Save(link) ->
-      let id = links |> map:size |> int_to_string
-      let new_links = map:put(links, id, link)
+      let id = links |> map_dict:size |> int_to_string
+      let new_links = map_dict:put(links, id, link)
       Reply(Ok(id), new_links)
   }
 }
@@ -46,10 +46,7 @@ pub fn handle_cast(_cast, links) {
   Noreply(links)
 }
 
-// Can't refer to types defined in other modules yet so can't specify atom:Atom
-// and map:NorFound correctly.
-//
-external fn gen_server_call(atom, Call) -> Result(String, error) =
+external fn gen_server_call(atom:Atom, Call) -> Result(String, map_dict:NotFound) =
   "gen_server" "call"
 
 fn call(payload) {

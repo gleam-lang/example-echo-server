@@ -1,22 +1,14 @@
 {"1.1.0",
 [{<<"elli">>,{pkg,<<"elli">>,<<"3.2.0">>},0},
- {<<"elli_access_log">>,
-  {git,"https://github.com/elli-lib/elli_access_log",
-       {ref,"e675a0e83e8dc4e0448281651d887c103681e52f"}},
-  0},
  {<<"gleam_experimental_elli">>,
   {git,"https://github.com/gleam-lang/gleam_experimental_elli",
-       {ref,"59ff7d4f3d7123d7fae70f9cab0d534a7a242bd6"}},
+       {ref,"ea3e87a8e7fddfc2505260a48940c93c184255ac"}},
   0},
  {<<"gleam_experimental_stdlib">>,
-  {pkg,<<"gleam_experimental_stdlib">>,<<"0.0.1">>},
-  0},
- {<<"syslog">>,
-  {git,"git://github.com/elli-lib/erlang-syslog.git",
-       {ref,"774ce419f6449ab102277348579e30b838accde9"}},
-  1}]}.
+  {pkg,<<"gleam_experimental_stdlib">>,<<"0.1.1">>},
+  0}]}.
 [
 {pkg_hash,[
  {<<"elli">>, <<"7842861819869EBBFF7230BC77ECF2DF551AE3EAEF5FDE6B01A7561CACCB811E">>},
- {<<"gleam_experimental_stdlib">>, <<"903DA7098976459C088F1136FEA15F6878368F4FC0EA5AA09C390B881558368B">>}]}
+ {<<"gleam_experimental_stdlib">>, <<"829CA1193B68102DDC490164832EA43F30F27CE80CB294B1A733CA6D634833D0">>}]}
 ].
