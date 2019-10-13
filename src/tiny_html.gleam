@@ -1,4 +1,4 @@
-import iodata
+import gleam/iodata
 
 fn layout(content) {
   let top = "<!DOCTYPE html>
