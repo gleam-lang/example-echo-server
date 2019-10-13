@@ -14,9 +14,9 @@ fn layout(content) {
   </body>
 </html>"
 
-  iodata:new(top)
-    |> iodata:append(_, content)
-    |> iodata:append(_, bottom)
+  iodata.new(top)
+  |> iodata.append(_, content)
+  |> iodata.append(_, bottom)
 }
 
 pub fn home() {
