@@ -28,7 +28,7 @@ init([]) ->
 
 web_child_spec(_) ->
     ElliOpts = [
-        {callback, tiny_web},
+        {callback, tiny@web},
         {callback_args, []},
         {port, 8080}],
     #{id => tiny_web,
@@ -39,7 +39,7 @@ web_child_spec(_) ->
 
 db_child_spec(_) ->
     #{id => tiny_db,
-      start => {gen_server, start_link, [{local, tiny_db}, tiny_db, [], []]},
+      start => {gen_server, start_link, [{local, tiny_db}, tiny@db, [], []]},
       restart => permanent,
       shutdown => 5000,
       type => worker}.

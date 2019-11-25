@@ -8,8 +8,7 @@ fn layout(content) {
     <meta name=\"viewport\" content=\"width=device-width\">
     <title>Tiny - A Gleam URL shortener</title>
   </head>
-  <body>
-"
+  <body>"
   let bottom = "
   </body>
 </html>"

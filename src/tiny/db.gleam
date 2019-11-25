@@ -7,22 +7,17 @@
 import gleam/map
 import gleam/string
 import gleam/atom
+import gleam/int
 
-external type Charlist;
-external fn int_to_charlist(Int) -> Charlist = "erlang" "integer_to_list";
-external fn charlist_to_string(Charlist) -> String = "erlang" "list_to_binary";
-
-fn int_to_string(i) {
-  i |> int_to_charlist |> charlist_to_string
+pub enum Response(reply, state) {
+  Reply(reply, state)
+  Noreply(state)
 }
 
-pub enum Response(reply, state) =
-  | Reply(reply, state)
-  | Noreply(state)
-
-pub enum Call =
-  | Save(String)
-  | Get(String)
+pub enum Call {
+  Save(String)
+  Get(String)
+}
 
 pub fn init(_arg) {
   let links = map.new()
@@ -31,14 +26,16 @@ pub fn init(_arg) {
 
 pub fn handle_call(call, _from, links) {
   case call {
-  | Get(id) ->
-      let link = map.fetch(links, id)
+    Get(id) -> {
+      let link = map.get(links, id)
       Reply(link, links)
+    }
 
-  | Save(link) ->
-      let id = links |> map.size |> int_to_string
-      let new_links = map.put(links, id, link)
+    Save(link) -> {
+      let id = links |> map.size |> int.to_string
+      let new_links = map.insert(links, id, link)
       Reply(Ok(id), new_links)
+    }
   }
 }
 
