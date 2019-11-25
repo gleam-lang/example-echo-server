@@ -3,7 +3,7 @@ import gleam/atom
 import gleam/list
 import gleam/iodata
 import gleam/elli
-import gleam/http
+import gleam/http.{Get, Post}
 import tiny/db
 import tiny/html
 
@@ -60,17 +60,17 @@ pub fn handle(request, _args) -> elli.Response {
   let method = elli.method(request)
   let path = elli.path(request)
 
-  case Pair(method, path) {
-    Pair(http.Get, []) ->
+  case method, path {
+    Get, [] ->
       home()
 
-    Pair(http.Post, ["link"]) ->
+    Post, ["link"] ->
       request |> elli.body |> create_link
 
-    Pair(http.Get, ["link", id]) ->
+    Get, ["link", id] ->
       get_link(id)
 
-    _ ->
+    _, _ ->
       not_found()
   }
 }
