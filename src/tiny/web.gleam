@@ -8,7 +8,7 @@ import tiny/db
 import tiny/html
 
 fn home() {
-  elli.Response(200, [], html.home())
+  tuple(200, [], html.home())
 }
 
 fn extract_link(formdata) {
@@ -28,35 +28,30 @@ fn create_link(payload) {
     Ok(link) -> {
       let id = db.save(link)
       // TODO. HTML
-      elli.Response(201, [], iodata.new(id))
+      tuple(201, [], iodata.new(id))
     }
 
     Error(_) ->
       // TODO. HTML
-      elli.Response(422, [], iodata.new("That doesn't look right."))
+      tuple(422, [], iodata.new("That doesn't look right."))
   }
 }
 
 fn get_link(id) {
   case db.get(id) {
     Ok(link) ->
-      elli.Response(200, [], iodata.new(link))
+      tuple(200, [], iodata.new(link))
 
     Error(_) ->
-      elli.Response(404, [], html.not_found())
+      tuple(404, [], html.not_found())
   }
 }
 
 fn not_found() {
-  elli.Response(404, [], html.not_found())
+  tuple(404, [], html.not_found())
 }
 
-struct Pair(a, b) {
-  first: a
-  second: b
-}
-
-pub fn handle(request, _args) -> elli.Response {
+pub fn handle(request, _args) {
   let method = elli.method(request)
   let path = elli.path(request)
 
@@ -75,8 +70,10 @@ pub fn handle(request, _args) -> elli.Response {
   }
 }
 
-pub struct Ok {}
+pub type HandleEvent {
+  Ok
+}
 
-pub fn handle_event(_event, _data, _args) -> Ok {
+pub fn handle_event(_event, _data, _args) -> HandleEvent {
   Ok
 }

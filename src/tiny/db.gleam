@@ -9,12 +9,12 @@ import gleam/string
 import gleam/atom
 import gleam/int
 
-pub enum Response(reply, state) {
+pub type Response(reply, state) {
   Reply(reply, state)
   Noreply(state)
 }
 
-pub enum Call {
+pub type Call {
   Save(String)
   Get(String)
 }
