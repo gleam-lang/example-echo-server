@@ -16,6 +16,7 @@ fn layout(content) {
   iodata.new(top)
   |> iodata.append(_, content)
   |> iodata.append(_, bottom)
+  |> iodata.to_string
 }
 
 pub fn home() {

@@ -2,13 +2,13 @@ import gleam/string
 import gleam/atom
 import gleam/list
 import gleam/iodata
-import gleam/elli
+import gleam/elli.{Response}
 import gleam/http.{Get, Post}
 import tiny/db
 import tiny/html
 
 fn home() {
-  tuple(200, [], html.home())
+  Response(200, [], html.home())
 }
 
 fn extract_link(formdata) {
@@ -28,30 +28,30 @@ fn create_link(payload) {
     Ok(link) -> {
       let id = db.save(link)
       // TODO. HTML
-      tuple(201, [], iodata.new(id))
+      Response(201, [], id)
     }
 
     Error(_) ->
       // TODO. HTML
-      tuple(422, [], iodata.new("That doesn't look right."))
+      Response(422, [], "That doesn't look right.")
   }
 }
 
 fn get_link(id) {
   case db.get(id) {
     Ok(link) ->
-      tuple(200, [], iodata.new(link))
+      Response(200, [], link)
 
     Error(_) ->
-      tuple(404, [], html.not_found())
+      Response(404, [], html.not_found())
   }
 }
 
 fn not_found() {
-  tuple(404, [], html.not_found())
+  Response(404, [], html.not_found())
 }
 
-pub fn handle(request, _args) {
+pub fn handle(request) {
   let method = elli.method(request)
   let path = elli.path(request)
 
@@ -70,10 +70,6 @@ pub fn handle(request, _args) {
   }
 }
 
-pub type HandleEvent {
-  Ok
-}
-
-pub fn handle_event(_event, _data, _args) -> HandleEvent {
-  Ok
+pub fn start_link() {
+  elli.start_link(3000, handle)
 }

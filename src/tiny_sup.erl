@@ -17,7 +17,7 @@ start_link() ->
     supervisor:start_link({local, ?SERVER}, ?MODULE, []).
 
 init([]) ->
-    io:fwrite("Starting web server on localhost:8080~n", []),
+    io:fwrite("Starting web server on localhost:3000~n", []),
 
     Config = #{strategy => one_for_all,
                intensity => 0,
@@ -27,12 +27,8 @@ init([]) ->
     {ok, {Config, Children}}.
 
 web_child_spec(_) ->
-    ElliOpts = [
-        {callback, tiny@web},
-        {callback_args, []},
-        {port, 8080}],
     #{id => tiny_web,
-      start => {elli, start_link, [ElliOpts]},
+      start => {tiny@web, start_link, []},
       restart => permanent,
       shutdown => 5000,
       type => worker}.
