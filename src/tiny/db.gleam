@@ -1,62 +1,52 @@
 //
-// A gen_server that serves as an in-memory database of ids and urls.
-//
-// We don't have good gen_server bindings yet, so it includes some unsafe FFI.
+// A process that serves as an in-memory database of ids and urls.
 //
 
-import gleam/map
-import gleam/string
-import gleam/atom
+import gleam/atom.{Atom}
 import gleam/int
+import gleam/map.{Map}
+import gleam/otp/agent.{Reply, Continue}
+import gleam/otp/process.{Pid}
+import gleam/string
 
-pub type Response(reply, state) {
-  Reply(reply, state)
-  Noreply(state)
+pub type Name {
+  TinyDb
+};
+
+// TODO: use registration from agent module once supported
+external fn register(Name, Pid(a)) -> Bool
+  = "erlang" "register"
+
+external fn unsafe_self() -> Pid(agent.Msg(Map(String, String)))
+  = "erlang" "self"
+
+external fn name_to_pid(Name) -> Pid(agent.Msg(Map(String, String)))
+  = "gleam@dynamic" "unsafe_coerce"
+
+pub fn start_link() {
+  agent.start_link(fn() {
+    register(TinyDb, unsafe_self())
+    agent.Ready(map.new())
+  })
 }
 
-pub type Call {
-  Save(String)
-  Get(String)
-}
-
-pub fn init(_arg) {
-  let links = map.new()
-  Ok(links)
-}
-
-pub fn handle_call(call, _from, links) {
-  case call {
-    Get(id) -> {
-      let link = map.get(links, id)
-      Reply(link, links)
-    }
-
-    Save(link) -> {
-      let id = links |> map.size |> int.to_string
-      let new_links = map.insert(links, id, link)
-      Reply(Ok(id), new_links)
-    }
-  }
-}
-
-pub fn handle_cast(_cast, links) {
-  Noreply(links)
-}
-
-external fn gen_server_call(atom.Atom, Call) -> Result(String, Nil) =
-  "gen_server" "call"
-
-fn call(payload) {
-  "tiny_db"
-  |> atom.create_from_string
-  |> gen_server_call(_, payload)
+fn singleton() {
+  name_to_pid(TinyDb)
 }
 
 pub fn get(id) {
-  call(Get(id))
+  let get_fn = fn(links) {
+    let link = map.get(links, id)
+    Reply(link, Continue(links))
+  }
+  agent.sync(singleton(), get_fn)
 }
 
 pub fn save(link) {
-  let Ok(i) = call(Save(link))
-  i
+  let save_fn = fn(links) {
+    let id = links |> map.size |> int.to_string
+    let new_links = map.insert(links, id, link)
+    Reply(id, Continue(new_links))
+  }
+  agent.sync(singleton(), save_fn)
 }

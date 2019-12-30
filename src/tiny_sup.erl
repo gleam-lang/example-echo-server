@@ -35,7 +35,7 @@ web_child_spec(_) ->
 
 db_child_spec(_) ->
     #{id => tiny_db,
-      start => {gen_server, start_link, [{local, tiny_db}, tiny@db, [], []]},
+      start => {tiny@db, start_link, []},
       restart => permanent,
       shutdown => 5000,
       type => worker}.
