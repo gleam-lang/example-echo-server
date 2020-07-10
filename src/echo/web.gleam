@@ -13,7 +13,7 @@ pub fn not_found() {
   let body = "There's nothing here. Try POSTing to /echo"
     |> bit_string.from_string
 
-  http.response(200)
+  http.response(404)
   |> http.set_resp_body(body)
 }
 
