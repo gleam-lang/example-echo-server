@@ -2,27 +2,23 @@
 [{<<"elli">>,{pkg,<<"elli">>,<<"3.2.0">>},0},
  {<<"gleam_elli">>,
   {git,"https://github.com/gleam-experiments/elli",
-       {ref,"159a2d136f9aa05cebd90c6d2d904682948077f4"}},
+       {ref,"3bac86a0135482bc6d50d1579289f66f7b7355aa"}},
   0},
  {<<"gleam_http">>,
   {git,"https://github.com/gleam-lang/gleam_http",
-       {ref,"672ec23ead50931ec8f9e8337d0e29f393ca2f2a"}},
+       {ref,"22efe1c8a420b112e25c72ccaccf90af132e173c"}},
   0},
- {<<"gleam_otp_agent">>,
-  {git,"https://github.com/gleam-experiments/otp_agent",
-       {ref,"ab7c90bdc96a6d0a1edf388a1055e3fdfd98b32f"}},
-  0},
- {<<"gleam_otp_process">>,
-  {git,"https://github.com/gleam-experiments/otp_process",
-       {ref,"fcc13443a37c1edf0d252c17bee28919a169529a"}},
+ {<<"gleam_otp">>,
+  {git,"https://github.com/gleam-lang/otp",
+       {ref,"547d0f2c810bc25f02c16c25c2309f8a195bc739"}},
   1},
  {<<"gleam_otp_supervisor">>,
   {git,"https://github.com/gleam-experiments/otp_supervisor",
-       {ref,"5f7b5c236c89f00d80c3a566eb46403c61c50b16"}},
+       {ref,"ed3484a2b24d50d93e7f4baad14429f6ff794295"}},
   0},
- {<<"gleam_stdlib">>,{pkg,<<"gleam_stdlib">>,<<"0.6.0">>},0}]}.
+ {<<"gleam_stdlib">>,{pkg,<<"gleam_stdlib">>,<<"0.10.0">>},0}]}.
 [
 {pkg_hash,[
  {<<"elli">>, <<"7842861819869EBBFF7230BC77ECF2DF551AE3EAEF5FDE6B01A7561CACCB811E">>},
- {<<"gleam_stdlib">>, <<"93D298A1DE4A65C7A8B18451AB761259B126DC7AB216AEB94D1541242618CE0B">>}]}
+ {<<"gleam_stdlib">>, <<"99DDF11B1458F7CA0D58A806B643CB1890C0B42CD283E51FAA6CF168C2496C9E">>}]}
 ].

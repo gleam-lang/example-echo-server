@@ -1,8 +1,7 @@
-Tiny
-====
+# Echo
 
-Tiny is a web application that takes long URLs and give back short ones that
-go to the same location, for sharing etc.
+A tiny echo server written in Gleam! It'll reply with any body posted to
+`/echo`.
 
 More importantly it's also an example web application written in the
 [Gleam](https://gleam.run) programming language!
@@ -12,9 +11,3 @@ More importantly it's also an example web application written in the
 ```sh
 rebar3 shell
 ```
-
-## TODO
-
-- Styling
-- Postgresql database
-- Deploy

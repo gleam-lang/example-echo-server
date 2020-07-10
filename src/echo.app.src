@@ -1,8 +1,8 @@
-{application, tiny,
+{application, echo,
  [{description, "An example URL shortener web app, written in Gleam"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, {tiny@supervisor, []}},
+  {mod, {echo@supervisor, []}},
   {applications,
    [kernel,
     stdlib
