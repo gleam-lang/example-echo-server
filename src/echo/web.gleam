@@ -3,6 +3,7 @@ import gleam/bit_string
 import gleam/result
 import gleam/elli
 import gleam/http.{Post}
+import gleam/http/middleware
 
 pub fn echo(body: BitString) {
   http.response(200)
@@ -17,7 +18,7 @@ pub fn not_found() {
   |> http.set_resp_body(body)
 }
 
-pub fn router(req: http.Request(BitString)) {
+pub fn service(req) {
   let path = http.req_segments(req)
 
   case req.method, path {
@@ -26,14 +27,11 @@ pub fn router(req: http.Request(BitString)) {
   }
 }
 
-pub fn service(req: http.Request(BitString)) {
-  req
-  |> router
-  |> http.prepend_resp_header("made-with", "Gleam")
-  |> http.map_resp_body(bit_builder.from_bit_string)
-}
-
 pub fn start() {
+  let service = service
+    |> middleware.prepend_resp_header("made-with", "Gleam")
+    |> middleware.map_resp_body(bit_builder.from_bit_string)
+
   elli.start(service, on_port: 3000)
   |> result.map_error(fn(_) { "failed to start" })
 }
