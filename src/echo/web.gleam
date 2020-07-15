@@ -22,7 +22,7 @@ fn not_found() {
 fn hello(name) {
   let reply = case string.lowercase(name) {
     "mike" -> "Hello, Joe!"
-    _ -> string.append("Hello ", name)
+    _ -> string.concat(["Hello, ", name, "!"])
   }
 
   http.response(200)
