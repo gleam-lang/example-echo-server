@@ -1,7 +1,6 @@
 import echo/web
 import gleam/http.{Get, Post, Response}
 import gleam/should
-import gleam/should
 
 pub fn not_found_test() {
   let resp = http.default_req()
