@@ -1,16 +1,17 @@
 import gleam/bit_builder.{BitBuilder}
 import gleam/bit_string
 import gleam/result
+import gleam/string
 import gleam/elli
-import gleam/http.{Post}
+import gleam/http.{Get, Post}
 import gleam/http/middleware
 
-pub fn echo(body: BitString) {
+fn echo(body: BitString) {
   http.response(200)
   |> http.set_resp_body(body)
 }
 
-pub fn not_found() {
+fn not_found() {
   let body = "There's nothing here. Try POSTing to /echo"
     |> bit_string.from_string
 
@@ -18,11 +19,23 @@ pub fn not_found() {
   |> http.set_resp_body(body)
 }
 
+fn hello(name) {
+  let reply = case string.lowercase(name) {
+    "mike" -> "Hello, Joe!"
+    _ -> string.append("Hello ", name)
+  }
+
+  http.response(200)
+  |> http.prepend_resp_header("content-type", "text/plain")
+  |> http.set_resp_body(bit_string.from_string(reply))
+}
+
 pub fn service(req) {
   let path = http.req_segments(req)
 
   case req.method, path {
     Post, ["echo"] -> echo(req.body)
+    Get, ["hello", name] -> hello(name)
     _, _ -> not_found()
   }
 }
