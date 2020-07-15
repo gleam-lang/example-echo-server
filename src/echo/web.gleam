@@ -5,6 +5,7 @@ import gleam/string
 import gleam/elli
 import gleam/http.{Get, Post}
 import gleam/http/middleware
+import echo/web/logger
 
 fn echo(body: BitString) {
   http.response(200)
@@ -44,6 +45,7 @@ pub fn start() {
   let service = service
     |> middleware.prepend_resp_header("made-with", "Gleam")
     |> middleware.map_resp_body(bit_builder.from_bit_string)
+    |> logger.middleware
 
   elli.start(service, on_port: 3000)
   |> result.map_error(fn(_) { "failed to start" })
