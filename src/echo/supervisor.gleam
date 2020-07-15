@@ -1,17 +1,10 @@
 import gleam/atom.{Atom}
 import gleam/dynamic.{Dynamic}
 import gleam/otp/basic_supervisor.{OneForAll, Permanent, Spec, WorkerSpec}
+import gleam/otp/application.{StartType}
 import echo/web
 
-pub external type Node
-
-pub type StartType {
-  Normal
-  Takeover(Node)
-  Failover(Node)
-}
-
-pub fn start(_: StartType, _: Dynamic) {
+pub fn start(_start: StartType, _arg: Dynamic) {
   let web = WorkerSpec(
     id: "web",
     start: web.start,
@@ -24,6 +17,6 @@ pub fn start(_: StartType, _: Dynamic) {
   )
 }
 
-pub fn stop(_: Dynamic) {
+pub fn stop(_state: Dynamic) {
   atom.create_from_string("ok")
 }
