@@ -5,8 +5,8 @@ import gleam/should
 
 pub fn not_found_test() {
   let resp = http.default_req()
-    |> http.set_req_method(Get)
-    |> http.set_req_path("/")
+    |> http.set_method(Get)
+    |> http.set_path("/")
     |> http.set_req_body(<<>>)
     |> web.service()
 
@@ -19,8 +19,8 @@ pub fn not_found_test() {
 
 pub fn hello_nubi_test() {
   let resp = http.default_req()
-    |> http.set_req_method(Get)
-    |> http.set_req_path("/hello/Nubi")
+    |> http.set_method(Get)
+    |> http.set_path("/hello/Nubi")
     |> http.set_req_body(<<>>)
     |> web.service()
 
@@ -33,8 +33,8 @@ pub fn hello_nubi_test() {
 
 pub fn hello_joe_test() {
   let resp = http.default_req()
-    |> http.set_req_method(Get)
-    |> http.set_req_path("/hello/Mike")
+    |> http.set_method(Get)
+    |> http.set_path("/hello/Mike")
     |> http.set_req_body(<<>>)
     |> web.service()
 
@@ -47,8 +47,8 @@ pub fn hello_joe_test() {
 
 pub fn echo_1_test() {
   let resp = http.default_req()
-    |> http.set_req_method(Post)
-    |> http.set_req_path("/echo")
+    |> http.set_method(Post)
+    |> http.set_path("/echo")
     |> http.set_req_body(<<1, 2, 3, 4>>)
     |> http.prepend_req_header("content-type", "application/octet-stream")
     |> web.service()
@@ -66,8 +66,8 @@ pub fn echo_1_test() {
 
 pub fn echo_2_test() {
   let resp = http.default_req()
-    |> http.set_req_method(Post)
-    |> http.set_req_path("/echo")
+    |> http.set_method(Post)
+    |> http.set_path("/echo")
     |> http.set_req_body(<<"Hello, Gleam!":utf8>>)
     |> http.prepend_req_header("content-type", "text/plain")
     |> web.service()
@@ -85,8 +85,8 @@ pub fn echo_2_test() {
 
 pub fn echo_3_test() {
   let resp = http.default_req()
-    |> http.set_req_method(Post)
-    |> http.set_req_path("/echo")
+    |> http.set_method(Post)
+    |> http.set_path("/echo")
     |> http.set_req_body(<<"Hello, Gleam!":utf8>>)
     |> web.service()
 

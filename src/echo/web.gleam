@@ -38,7 +38,7 @@ fn hello(name) {
 }
 
 pub fn service(req) {
-  let path = http.req_segments(req)
+  let path = http.path_segments(req)
 
   case req.method, path {
     Post, ["echo"] -> echo(req)
