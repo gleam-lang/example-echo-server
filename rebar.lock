@@ -4,10 +4,7 @@
   {git,"https://github.com/gleam-experiments/elli",
        {ref,"44dea4fe29139a297d8d5324d10bb961892016f7"}},
   0},
- {<<"gleam_http">>,
-  {git,"https://github.com/gleam-lang/gleam_http",
-       {ref,"c9e9ed18f968a61fea51878c20af0d7ae91734d4"}},
-  0},
+ {<<"gleam_http">>,{pkg,<<"gleam_http">>,<<"1.1.0">>},0},
  {<<"gleam_otp">>,
   {git,"https://github.com/gleam-lang/otp",
        {ref,"c5535c846974914727ece72ba8d653aebcc98fbe"}},
@@ -16,5 +13,6 @@
 [
 {pkg_hash,[
  {<<"elli">>, <<"7842861819869EBBFF7230BC77ECF2DF551AE3EAEF5FDE6B01A7561CACCB811E">>},
+ {<<"gleam_http">>, <<"E6459E1A04B388CB2D554B070B41FE4AFB81F431190A0E7DD08A1396A615BD29">>},
  {<<"gleam_stdlib">>, <<"F123F33E03B5CDF5E19FC179B9EE81269DEB93F7DEFADB17EF2930E4DB9011E7">>}]}
 ].
