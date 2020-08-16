@@ -2,8 +2,8 @@ import gleam/bit_builder.{BitBuilder}
 import gleam/bit_string
 import gleam/result
 import gleam/string
-import gleam/elli
 import gleam/http.{Get, Post}
+import gleam/http/elli
 import gleam/http/middleware
 import echo/web/logger
 
