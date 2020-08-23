@@ -2,7 +2,7 @@ import gleam/http
 import gleam/int
 import gleam/io
 import gleam/string
-import gleam/string_builder.{StringBuilder}
+import gleam/string_builder
 
 fn format_log_line(req: http.Request(a), resp: http.Response(b)) -> String {
   req.method

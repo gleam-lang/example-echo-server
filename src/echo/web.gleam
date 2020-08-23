@@ -1,4 +1,4 @@
-import gleam/bit_builder.{BitBuilder}
+import gleam/bit_builder
 import gleam/bit_string
 import gleam/result
 import gleam/string
@@ -8,7 +8,8 @@ import gleam/http/middleware
 import echo/web/logger
 
 fn echo(req) {
-  let content_type = req
+  let content_type =
+    req
     |> http.get_req_header("content-type")
     |> result.unwrap("application/octet-stream")
 
@@ -18,7 +19,8 @@ fn echo(req) {
 }
 
 fn not_found() {
-  let body = "There's nothing here. Try POSTing to /echo"
+  let body =
+    "There's nothing here. Try POSTing to /echo"
     |> bit_string.from_string
 
   http.response(404)
@@ -48,7 +50,8 @@ pub fn service(req) {
 }
 
 pub fn start() {
-  let service = service
+  let service =
+    service
     |> middleware.prepend_resp_header("made-with", "Gleam")
     |> middleware.map_resp_body(bit_builder.from_bit_string)
     |> logger.middleware
