@@ -1,16 +1,20 @@
-{"1.1.0",
-[{<<"elli">>,{pkg,<<"elli">>,<<"3.2.0">>},0},
- {<<"gleam_elli">>,{pkg,<<"gleam_elli">>,<<"0.1.1">>},0},
- {<<"gleam_http">>,{pkg,<<"gleam_http">>,<<"1.3.0">>},0},
- {<<"gleam_otp">>,
-  {git,"https://github.com/gleam-lang/otp",
-       {ref,"712105d5cabced662260c5128e2d86783bc3dd95"}},
-  0},
+{"1.2.0",
+[{<<"elli">>,{pkg,<<"elli">>,<<"3.3.0">>},0},
+ {<<"gleam_elli">>,{pkg,<<"gleam_elli">>,<<"0.2.0">>},0},
+ {<<"gleam_http">>,{pkg,<<"gleam_http">>,<<"1.5.0">>},0},
+ {<<"gleam_otp">>,{pkg,<<"gleam_otp">>,<<"0.1.2">>},0},
  {<<"gleam_stdlib">>,{pkg,<<"gleam_stdlib">>,<<"0.11.0">>},0}]}.
 [
 {pkg_hash,[
- {<<"elli">>, <<"7842861819869EBBFF7230BC77ECF2DF551AE3EAEF5FDE6B01A7561CACCB811E">>},
- {<<"gleam_elli">>, <<"BB9635BFE9ACA8540ADEBA6C622FB25E6E161285EF1384E63660B29902F5B3CA">>},
- {<<"gleam_http">>, <<"DC84D787CB49550D7E98834A966A4F07EE90FE863A6088E752E8F1A208AB41C1">>},
- {<<"gleam_stdlib">>, <<"9B1089739574CDF78A1C25A463D770A98F59E63A92324D17095AD67E867EE549">>}]}
+ {<<"elli">>, <<"089218762A7FF3D20AE81C8E911BD0F73EE4EE0ED85454226D1FC6B4FFF3B4F6">>},
+ {<<"gleam_elli">>, <<"0008324DBAF220DDC39879FE5A65D6D7AF303629B60F1C182D5D79F336B312E0">>},
+ {<<"gleam_http">>, <<"BE2DFC92BF6F83DF6A19756B985A42E0798DEA64BB885AB08B31E0384F7165D3">>},
+ {<<"gleam_otp">>, <<"BA27CEB7923C49AD76DB80E6A436C172BE3A78939DCCC8B864DBDA685C620DA4">>},
+ {<<"gleam_stdlib">>, <<"9B1089739574CDF78A1C25A463D770A98F59E63A92324D17095AD67E867EE549">>}]},
+{pkg_hash_ext,[
+ {<<"elli">>, <<"698B13B33D05661DB9FE7EFCBA41B84825A379CCE86E486CF6AFF9285BE0CCF8">>},
+ {<<"gleam_elli">>, <<"A56D391FD19989463BE918C764EE1533BBE578F1BDEAE4B488A5777FF820CE3B">>},
+ {<<"gleam_http">>, <<"902B41BD1CCD86DC0EF93517173366FE5ECFC1D72F95C86DBD1519238440B742">>},
+ {<<"gleam_otp">>, <<"D0ACEB108E84E078C8D2A3C0933224C35552468BDD6D0C020712CE60EA393669">>},
+ {<<"gleam_stdlib">>, <<"5508E169E20369FC8D400481D3F37CCB2CFD880509F63D6E2B6D85F939BC991B">>}]}
 ].

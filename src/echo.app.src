@@ -2,7 +2,7 @@
  [{description, "An example URL shortener web app, written in Gleam"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, {echo@supervisor, []}},
+  {mod, {echo@application, []}},
   {applications,
    [kernel,
     stdlib

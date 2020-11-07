@@ -57,5 +57,4 @@ pub fn start() {
     |> logger.middleware
 
   elli.start(service, on_port: 3000)
-  |> result.map_error(fn(_) { "failed to start" })
 }
