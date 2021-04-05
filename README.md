@@ -9,6 +9,7 @@ More importantly it's also an example web application written in the
 ## Run
 
 ```sh
+# Start the web server locally
 rebar3 shell
 ```
 
