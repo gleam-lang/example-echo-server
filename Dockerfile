@@ -2,9 +2,9 @@
 FROM erlang:23.1-alpine AS build
 
 run mkdir /downloads
-add https://github.com/gleam-lang/gleam/releases/download/v0.12.0/gleam-v0.12.0-linux-amd64.tar.gz /downloads
+add https://github.com/gleam-lang/gleam/releases/download/v0.14.4/gleam-v0.14.4-linux-amd64.tar.gz /downloads
 workdir /downloads
-run tar zxf ./gleam-v0.12.0-linux-amd64.tar.gz
+run tar zxf ./gleam-v0.14.4-linux-amd64.tar.gz
 run cp gleam /usr/bin/gleam
 run chmod +x /usr/bin/gleam
 
