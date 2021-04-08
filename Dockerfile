@@ -1,10 +1,12 @@
 # Build image
 FROM erlang:23.1-alpine AS build
 
+ARG version=0.14.4
+
 RUN mkdir /downloads
-ADD https://github.com/gleam-lang/gleam/releases/download/v0.14.4/gleam-v0.14.4-linux-amd64.tar.gz /downloads
+ADD https://github.com/gleam-lang/gleam/releases/download/v${version}/gleam-v${version}-linux-amd64.tar.gz /downloads
 WORKDIR /downloads
-RUN tar zxf ./gleam-v0.14.4-linux-amd64.tar.gz
+RUN tar zxf ./gleam-v${version}-linux-amd64.tar.gz
 RUN cp gleam /usr/bin/gleam
 RUN chmod +x /usr/bin/gleam
 
