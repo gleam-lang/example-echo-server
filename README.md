@@ -24,7 +24,7 @@ docker build -t gleam-echo:latest .
 Run with:
 
 ```sh
-docker run -p 3000:3000 gleam-echo:latest
+docker run --rm -p 3000:3000 gleam-echo:latest
 ```
 
 And load `http://localhost:3000` in your browser. You should see an instruction to interact with
