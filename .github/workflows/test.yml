@@ -13,8 +13,9 @@ jobs:
       - uses: actions/checkout@v2.0.0
       - uses: gleam-lang/setup-erlang@v1.1.2
         with:
-          otp-version: 23.2
+          otp-version: "23.2"
       - uses: gleam-lang/setup-gleam@v1.0.1
         with:
-          gleam-version: 0.16.1
-      - run: rebar3 eunit
+          gleam-version: "0.18.o-rc2"
+      - run: gleam format --check src test
+      - run: gleam test

@@ -1,6 +1,5 @@
 import echo/web
 import gleam/http.{Get, Post}
-import gleam/should
 
 pub fn not_found_test() {
   let resp =
@@ -10,11 +9,8 @@ pub fn not_found_test() {
     |> http.set_req_body(<<>>)
     |> web.service()
 
-  resp.status
-  |> should.equal(404)
-
-  resp.body
-  |> should.equal(<<"There's nothing here. Try POSTing to /echo":utf8>>)
+  assert 404 = resp.status
+  assert <<"There's nothing here. Try POSTing to /echo":utf8>> = resp.body
 }
 
 pub fn hello_nubi_test() {
@@ -25,11 +21,8 @@ pub fn hello_nubi_test() {
     |> http.set_req_body(<<>>)
     |> web.service()
 
-  resp.status
-  |> should.equal(200)
-
-  resp.body
-  |> should.equal(<<"Hello, Nubi!":utf8>>)
+  assert 200 = resp.status
+  assert <<"Hello, Nubi":utf8>> = resp.body
 }
 
 pub fn hello_joe_test() {
@@ -40,11 +33,8 @@ pub fn hello_joe_test() {
     |> http.set_req_body(<<>>)
     |> web.service()
 
-  resp.status
-  |> should.equal(200)
-
-  resp.body
-  |> should.equal(<<"Hello, Joe!":utf8>>)
+  assert 200 = resp.status
+  assert <<"Hello, Joe":utf8>> = resp.body
 }
 
 pub fn echo_1_test() {
@@ -56,15 +46,10 @@ pub fn echo_1_test() {
     |> http.prepend_req_header("content-type", "application/octet-stream")
     |> web.service()
 
-  resp.status
-  |> should.equal(200)
-
-  resp.body
-  |> should.equal(<<1, 2, 3, 4>>)
-
-  resp
-  |> http.get_resp_header("content-type")
-  |> should.equal(Ok("application/octet-stream"))
+  assert 200 = resp.status
+  assert <<1, 2, 3, 4>> = resp.body
+  assert Ok("application/octet-stream") =
+    http.get_resp_header(resp, "content-type")
 }
 
 pub fn echo_2_test() {
@@ -76,15 +61,9 @@ pub fn echo_2_test() {
     |> http.prepend_req_header("content-type", "text/plain")
     |> web.service()
 
-  resp.status
-  |> should.equal(200)
-
-  resp.body
-  |> should.equal(<<"Hello, Gleam!":utf8>>)
-
-  resp
-  |> http.get_resp_header("content-type")
-  |> should.equal(Ok("text/plain"))
+  assert 200 = resp.status
+  assert <<"Hello, Gleam":utf8>> = resp.body
+  assert Ok("text/plain") = http.get_resp_header(resp, "content-type")
 }
 
 pub fn echo_3_test() {
@@ -95,13 +74,8 @@ pub fn echo_3_test() {
     |> http.set_req_body(<<"Hello, Gleam!":utf8>>)
     |> web.service()
 
-  resp.status
-  |> should.equal(200)
-
-  resp.body
-  |> should.equal(<<"Hello, Gleam!":utf8>>)
-
-  resp
-  |> http.get_resp_header("content-type")
-  |> should.equal(Ok("application/octet-stream"))
+  assert 200 = resp.status
+  assert <<"Hello, Gleam":utf8>> = resp.body
+  assert Ok("application/octet-stream") =
+    http.get_resp_header(resp, "content-type")
 }

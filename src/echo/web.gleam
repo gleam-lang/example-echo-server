@@ -49,12 +49,9 @@ pub fn service(req) {
   }
 }
 
-pub fn start() {
-  let service =
-    service
-    |> middleware.prepend_resp_header("made-with", "Gleam")
-    |> middleware.map_resp_body(bit_builder.from_bit_string)
-    |> logger.middleware
-
-  elli.start(service, on_port: 3000)
+pub fn stack() {
+  service
+  |> middleware.prepend_resp_header("made-with", "Gleam")
+  |> middleware.map_resp_body(bit_builder.from_bit_string)
+  |> logger.middleware
 }
