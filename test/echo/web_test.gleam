@@ -22,7 +22,7 @@ pub fn hello_nubi_test() {
     |> web.service()
 
   assert 200 = resp.status
-  assert <<"Hello, Nubi":utf8>> = resp.body
+  assert <<"Hello, Nubi!":utf8>> = resp.body
 }
 
 pub fn hello_joe_test() {
@@ -34,7 +34,7 @@ pub fn hello_joe_test() {
     |> web.service()
 
   assert 200 = resp.status
-  assert <<"Hello, Joe":utf8>> = resp.body
+  assert <<"Hello, Joe!":utf8>> = resp.body
 }
 
 pub fn echo_1_test() {
@@ -62,7 +62,7 @@ pub fn echo_2_test() {
     |> web.service()
 
   assert 200 = resp.status
-  assert <<"Hello, Gleam":utf8>> = resp.body
+  assert <<"Hello, Gleam!":utf8>> = resp.body
   assert Ok("text/plain") = http.get_resp_header(resp, "content-type")
 }
 
@@ -75,7 +75,7 @@ pub fn echo_3_test() {
     |> web.service()
 
   assert 200 = resp.status
-  assert <<"Hello, Gleam":utf8>> = resp.body
+  assert <<"Hello, Gleam!":utf8>> = resp.body
   assert Ok("application/octet-stream") =
     http.get_resp_header(resp, "content-type")
 }
