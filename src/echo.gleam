@@ -8,11 +8,9 @@ import gleam/erlang/os
 import gleam/http/elli
 
 pub fn main() {
-  let port: Int =
-    {
-      try port = os.get_env("PORT")
-      int.parse(port)
-    }
+  let port =
+    os.get_env("PORT")
+    |> result.map(int.parse)
     |> result.unwrap(3000)
 
   // Start the web server process
