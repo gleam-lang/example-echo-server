@@ -1,0 +1,8 @@
+.gitattributes
+.github
+.gitignore
+Dockerfile
+LICENCE
+README.md
+build
+test
