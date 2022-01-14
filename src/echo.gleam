@@ -10,7 +10,7 @@ import gleam/http/elli
 pub fn main() {
   let port =
     os.get_env("PORT")
-    |> result.map(int.parse)
+    |> result.then(int.parse)
     |> result.unwrap(3000)
 
   // Start the web server process
