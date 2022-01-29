@@ -4,18 +4,20 @@ import gleam/result
 import gleam/string
 import gleam/http.{Get, Post}
 import gleam/http/elli
-import gleam/http/middleware
+import gleam/http/service
+import gleam/http/request
+import gleam/http/response
 import echo/web/logger
 
-fn echo(req) {
+fn echo(request) {
   let content_type =
-    req
-    |> http.get_req_header("content-type")
+    request
+    |> request.get_header("content-type")
     |> result.unwrap("application/octet-stream")
 
-  http.response(200)
-  |> http.set_resp_body(req.body)
-  |> http.prepend_resp_header("content-type", content_type)
+  response.new(200)
+  |> response.set_body(request.body)
+  |> response.prepend_header("content-type", content_type)
 }
 
 fn not_found() {
@@ -23,9 +25,9 @@ fn not_found() {
     "There's nothing here. Try POSTing to /echo"
     |> bit_string.from_string
 
-  http.response(404)
-  |> http.set_resp_body(body)
-  |> http.prepend_resp_header("content-type", "text/plain")
+  response.new(404)
+  |> response.set_body(body)
+  |> response.prepend_header("content-type", "text/plain")
 }
 
 fn hello(name) {
@@ -34,16 +36,16 @@ fn hello(name) {
     _ -> string.concat(["Hello, ", name, "!"])
   }
 
-  http.response(200)
-  |> http.set_resp_body(bit_string.from_string(reply))
-  |> http.prepend_resp_header("content-type", "text/plain")
+  response.new(200)
+  |> response.set_body(bit_string.from_string(reply))
+  |> response.prepend_header("content-type", "text/plain")
 }
 
-pub fn service(req) {
-  let path = http.path_segments(req)
+pub fn service(request) {
+  let path = request.path_segments(request)
 
-  case req.method, path {
-    Post, ["echo"] -> echo(req)
+  case request.method, path {
+    Post, ["echo"] -> echo(request)
     Get, ["hello", name] -> hello(name)
     _, _ -> not_found()
   }
@@ -51,7 +53,7 @@ pub fn service(req) {
 
 pub fn stack() {
   service
-  |> middleware.prepend_resp_header("made-with", "Gleam")
-  |> middleware.map_resp_body(bit_builder.from_bit_string)
+  |> service.prepend_response_header("made-with", "Gleam")
+  |> service.map_response_body(bit_builder.from_bit_string)
   |> logger.middleware
 }
