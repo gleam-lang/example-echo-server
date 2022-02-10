@@ -1,7 +1,1 @@
 examples/* linguist-documentation=false
-
-# We want fancy syntax highlighting on GitHub, though GitHub doesn't know how
-# to speak Gleam. Until it does (maybe one day!) we'll tell GitHub that these
-# files are Rust, which has a similar enough syntax for the highlighting to
-# work in many cases.
-*.gleam linguist-language=Rust
