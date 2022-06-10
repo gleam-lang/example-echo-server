@@ -14,13 +14,14 @@ pub fn main() {
     |> result.unwrap(3000)
 
   // Start the web server process
-  assert Ok(_) = elli.start(web.stack(), on_port: port)
+  assert Ok(_) = web.stack() |> elli.start(on_port: port)
 
-  io.println(string.concat([
+  [
     "Started listening on localhost:",
     int.to_string(port),
     " ✨",
-  ]))
+  ] |> string.concat
+    |> io.println
 
   // Put the main process to sleep while the web server does its thing
   erlang.sleep_forever()
