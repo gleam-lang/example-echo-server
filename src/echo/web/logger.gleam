@@ -6,7 +6,6 @@ import gleam/int
 import gleam/io
 import gleam/string
 import gleam/string_builder
-import gleam/function
 
 fn format_log_line(request: Request(a), response: Response(b)) -> String {
   request.method
@@ -22,11 +21,9 @@ fn format_log_line(request: Request(a), response: Response(b)) -> String {
 
 pub fn middleware(service: Service(a, b)) -> Service(a, b) {
   fn(request) {
-    service(request)
-    |> function.tap(fn(response) {
-      response
-      |> format_log_line(request, _)
-      |> io.println
-    })
+    let response = service(request)
+    format_log_line(request, response)
+    |> io.println
+    response
   }
 }
