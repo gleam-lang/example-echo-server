@@ -23,10 +23,10 @@ fn format_log_line(request: Request(a), response: Response(b)) -> String {
 pub fn middleware(service: Service(a, b)) -> Service(a, b) {
   fn(request) {
     service(request)
-      |> function.tap(fn(response) {
-        response
-          |> format_log_line(request, _)
-          |> io.println
-      })
+    |> function.tap(fn(response) {
+      response
+      |> format_log_line(request, _)
+      |> io.println
+    })
   }
 }
