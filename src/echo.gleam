@@ -3,7 +3,7 @@ import gleam/io
 import gleam/int
 import gleam/string
 import gleam/result
-import gleam/erlang
+import gleam/erlang/process
 import gleam/erlang/os
 import gleam/http/elli
 
@@ -23,5 +23,5 @@ pub fn main() {
   |> io.println
 
   // Put the main process to sleep while the web server does its thing
-  erlang.sleep_forever()
+  process.sleep_forever()
 }

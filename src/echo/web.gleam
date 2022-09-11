@@ -3,7 +3,6 @@ import gleam/bit_string
 import gleam/result
 import gleam/string
 import gleam/http.{Get, Post}
-import gleam/http/elli
 import gleam/http/service
 import gleam/http/request
 import gleam/http/response
