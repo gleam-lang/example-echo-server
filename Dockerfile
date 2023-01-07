@@ -1,4 +1,4 @@
-FROM ghcr.io/gleam-lang/gleam:v0.19.0-erlang-alpine
+FROM ghcr.io/gleam-lang/gleam:v0.25.3-erlang-alpine
 
 # Create a group and user to run as
 RUN addgroup -S echogroup && adduser -S echouser -G echogroup
