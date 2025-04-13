@@ -1,11 +1,11 @@
+import envoy
 import gleam/erlang/process
 import gleam/int
 import gleam/result
-import envoy
 import mist
+import reply/router
 import wisp
 import wisp/wisp_mist
-import reply/router
 
 pub fn main() {
   wisp.configure_logger()
@@ -20,9 +20,9 @@ pub fn main() {
   // Start the web server process
   let assert Ok(_) =
     wisp_mist.handler(router.handle_request, secret_key_base)
-      |> mist.new
-      |> mist.port(port)
-      |> mist.start_http
+    |> mist.new
+    |> mist.port(port)
+    |> mist.start_http
 
   // Put the main process to sleep while the web server does its thing
   process.sleep_forever()

@@ -1,6 +1,6 @@
-import gleam/http/response
 import gleam/http.{Post}
 import gleam/http/request
+import gleam/http/response
 import gleam/result
 import gleam/string
 import wisp.{type Request, type Response}
@@ -19,7 +19,7 @@ pub fn middleware(
   handle_request(req)
 }
 
-pub fn default_responses(handle_request: fn() -> Response){
+pub fn default_responses(handle_request: fn() -> Response) {
   let response = handle_request()
 
   response.set_header(response, "made-with", "Gleam")
@@ -35,7 +35,8 @@ pub fn reply(request: Request) {
 fn reply_post_response(request: Request) {
   use body <- wisp.require_string_body(request)
 
-  let content_type = request.get_header(request, "content-type")
+  let content_type =
+    request.get_header(request, "content-type")
     |> result.unwrap("application/octet-stream")
 
   wisp.ok()
