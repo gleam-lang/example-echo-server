@@ -1,58 +1,61 @@
-import gleam/bit_array
-import gleam/bytes_builder
-import gleam/http.{Get, Post}
-import gleam/http/request
 import gleam/http/response
-import gleam/http/service
+import gleam/http.{Post}
+import gleam/http/request
 import gleam/result
 import gleam/string
-import reply/web/logger
+import wisp.{type Request, type Response}
 
-fn reply(request) {
-  let content_type =
-    request
-    |> request.get_header("content-type")
+pub fn middleware(
+  req: Request,
+  handle_request: fn(Request) -> Response,
+) -> wisp.Response {
+  let req = wisp.method_override(req)
+  use <- wisp.log_request(req)
+  use <- wisp.rescue_crashes
+  use req <- wisp.handle_head(req)
+
+  use <- default_responses
+
+  handle_request(req)
+}
+
+pub fn default_responses(handle_request: fn() -> Response){
+  let response = handle_request()
+
+  response.set_header(response, "made-with", "Gleam")
+}
+
+pub fn reply(request: Request) {
+  case request.method {
+    Post -> reply_post_response(request)
+    _ -> wisp.method_not_allowed([Post])
+  }
+}
+
+fn reply_post_response(request: Request) {
+  use body <- wisp.require_string_body(request)
+
+  let content_type = request.get_header(request, "content-type")
     |> result.unwrap("application/octet-stream")
 
-  response.new(200)
-  |> response.set_body(request.body)
-  |> response.prepend_header("content-type", content_type)
+  wisp.ok()
+  |> wisp.set_header("content-type", content_type)
+  |> wisp.string_body(body)
 }
 
-fn not_found() {
-  let body =
-    "There's nothing here. Try POSTing to /echo"
-    |> bit_array.from_string
-
-  response.new(404)
-  |> response.set_body(body)
-  |> response.prepend_header("content-type", "text/plain")
-}
-
-fn hello(name) {
+pub fn hello(name) {
   let reply = case string.lowercase(name) {
     "mike" -> "Hello, Joe!"
     _ -> string.concat(["Hello, ", name, "!"])
   }
 
-  response.new(200)
-  |> response.set_body(bit_array.from_string(reply))
-  |> response.prepend_header("content-type", "text/plain")
+  wisp.ok()
+  |> wisp.set_header("content-type", "text/plain")
+  |> wisp.string_body(reply)
 }
 
-pub fn service(request) {
-  let path = request.path_segments(request)
-
-  case request.method, path {
-    Post, ["echo"] -> reply(request)
-    Get, ["hello", name] -> hello(name)
-    _, _ -> not_found()
-  }
-}
-
-pub fn stack() {
-  service
-  |> service.prepend_response_header("made-with", "Gleam")
-  |> service.map_response_body(bytes_builder.from_bit_array)
-  |> logger.middleware
+pub fn not_found() {
+  wisp.not_found()
+  |> wisp.set_header("content-type", "text/plain")
+  |> wisp.string_body("There's nothing here. Try POSTing to /echo")
 }

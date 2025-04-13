@@ -1,5 +1,5 @@
 name = "reply"
-version = "1.0.0"
+version = "1.1.0"
 licences = ["Apache-2.0"]
 description = "A tiny echo server written in Gleam!"
 
@@ -10,10 +10,12 @@ links = [
 ]
 
 [dependencies]
-gleam_stdlib = "~> 0.25 or ~> 1.0"
-gleam_http = "~> 3.0"
-gleam_elli = "~> 2.0"
-gleam_erlang = "~> 0.17"
+gleam_stdlib = "~> 0.38"
+gleam_http = "~> 3.5"
+gleam_erlang = "~> 0.23"
+wisp = ">= 1.2.0 and < 2.0.0"
+mist = ">= 4.0.6 and < 5.0.0"
+envoy = ">= 1.0.2 and < 2.0.0"
 
 [dev-dependencies]
 gleeunit = "~> 1.0"

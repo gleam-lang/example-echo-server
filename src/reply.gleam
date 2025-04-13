@@ -1,26 +1,28 @@
-import gleam/erlang/os
 import gleam/erlang/process
-import gleam/http/elli
 import gleam/int
-import gleam/io
 import gleam/result
-import gleam/string
-import reply/web
+import envoy
+import mist
+import wisp
+import wisp/wisp_mist
+import reply/router
 
 pub fn main() {
+  wisp.configure_logger()
+
   let port =
-    os.get_env("PORT")
+    envoy.get("PORT")
     |> result.then(int.parse)
     |> result.unwrap(3000)
 
+  let secret_key_base = wisp.random_string(64)
+
   // Start the web server process
   let assert Ok(_) =
-    web.stack()
-    |> elli.start(on_port: port)
-
-  ["Started listening on localhost:", int.to_string(port), " ✨"]
-  |> string.concat
-  |> io.println
+    wisp_mist.handler(router.handle_request, secret_key_base)
+      |> mist.new
+      |> mist.port(port)
+      |> mist.start_http
 
   // Put the main process to sleep while the web server does its thing
   process.sleep_forever()

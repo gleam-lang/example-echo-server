@@ -1,83 +1,79 @@
-import gleam/http.{Get, Post}
-import gleam/http/request
-import gleam/http/response
-import reply/web
+import gleeunit/should
+import reply/router
+import wisp/testing
 
 pub fn not_found_test() {
-  let resp =
-    request.new()
-    |> request.set_method(Get)
-    |> request.set_path("/")
-    |> request.set_body(<<>>)
-    |> web.service()
+  let response =
+    testing.get("/", [])
+    |> router.handle_request()
 
-  let assert 404 = resp.status
-  let assert <<"There's nothing here. Try POSTing to /echo":utf8>> = resp.body
+  response.status
+  |> should.equal(404)
+
+  response
+  |> testing.string_body
+  |> should.equal("There's nothing here. Try POSTing to /echo")
 }
 
 pub fn hello_nubi_test() {
-  let resp =
-    request.new()
-    |> request.set_method(Get)
-    |> request.set_path("/hello/Nubi")
-    |> request.set_body(<<>>)
-    |> web.service()
+  let response =
+    testing.get("/hello/Nubi", [])
+    |> router.handle_request()
 
-  let assert 200 = resp.status
-  let assert <<"Hello, Nubi!":utf8>> = resp.body
+  response.status
+  |> should.equal(200)
+
+  response
+  |> testing.string_body
+  |> should.equal("Hello, Nubi!")
 }
 
 pub fn hello_joe_test() {
-  let resp =
-    request.new()
-    |> request.set_method(Get)
-    |> request.set_path("/hello/Mike")
-    |> request.set_body(<<>>)
-    |> web.service()
+  let response =
+    testing.get("/hello/Mike", [])
+    |> router.handle_request()
 
-  let assert 200 = resp.status
-  let assert <<"Hello, Joe!":utf8>> = resp.body
+  response.status
+  |> should.equal(200)
+
+  response
+  |> testing.string_body
+  |> should.equal("Hello, Joe!")
 }
 
 pub fn echo_1_test() {
-  let resp =
-    request.new()
-    |> request.set_method(Post)
-    |> request.set_path("/echo")
-    |> request.set_body(<<1, 2, 3, 4>>)
-    |> request.prepend_header("content-type", "application/octet-stream")
-    |> web.service()
+  let response =
+    testing.post("/echo", [], "Hello, Gleam!")
+    |> testing.set_header("content-type", "text/plain")
+    |> router.handle_request()
 
-  let assert 200 = resp.status
-  let assert <<1, 2, 3, 4>> = resp.body
-  let assert Ok("application/octet-stream") =
-    response.get_header(resp, "content-type")
+  response.status
+  |> should.equal(200)
+
+  response
+  |> testing.string_body
+  |> should.equal("Hello, Gleam!")
+
+  response.headers
+  |> should.equal([#("content-type", "text/plain"), #("made-with", "Gleam")])
 }
 
 pub fn echo_2_test() {
-  let resp =
-    request.new()
-    |> request.set_method(Post)
-    |> request.set_path("/echo")
-    |> request.set_body(<<"Hello, Gleam!":utf8>>)
-    |> request.prepend_header("content-type", "text/plain")
-    |> web.service()
+  let response =
+    testing.post("/echo", [], "Hello, Gleam!")
+    |> testing.set_header("content-type", "application/octet-stream")
+    |> router.handle_request()
 
-  let assert 200 = resp.status
-  let assert <<"Hello, Gleam!":utf8>> = resp.body
-  let assert Ok("text/plain") = response.get_header(resp, "content-type")
-}
+  response.status
+  |> should.equal(200)
 
-pub fn echo_3_test() {
-  let resp =
-    request.new()
-    |> request.set_method(Post)
-    |> request.set_path("/echo")
-    |> request.set_body(<<"Hello, Gleam!":utf8>>)
-    |> web.service()
+  response
+  |> testing.string_body
+  |> should.equal("Hello, Gleam!")
 
-  let assert 200 = resp.status
-  let assert <<"Hello, Gleam!":utf8>> = resp.body
-  let assert Ok("application/octet-stream") =
-    response.get_header(resp, "content-type")
+  response.headers
+  |> should.equal([
+    #("content-type", "application/octet-stream"),
+    #("made-with", "Gleam"),
+  ])
 }
